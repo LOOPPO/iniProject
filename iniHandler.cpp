@@ -5,24 +5,11 @@
 #include "iniHandler.h"
 
 iniHandler::iniHandler(string filename) {
-    this->filename=filename;
-    this->error=false;
-    this->file.open(filename); //open file
-    string linenow,sectionnow,key,value;
-    bool insection=false;
-
-    if(this->file.is_open()){
-        while (getline(file,linenow)){ //analize each line
-            if(!linenow.size()) //if nothing skip
-                continue;
-        }
-    }
 }
 void iniHandler::Close() {
     if(filename.size()==0)
         return; //current file?
-    this->file.open(filename,ofstream::out|ofstream::trunc);
-
+    
 }
 bool iniHandler::error() {
     return this->error;
