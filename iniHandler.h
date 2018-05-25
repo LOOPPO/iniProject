@@ -28,7 +28,7 @@ public:
     //functions to delete
     bool delKey(string section,string key);
     bool delSection(string section);
-    //something to add news to the file
+    //something to add news to the file,uf there are
     void Close();
 
 private:
@@ -36,6 +36,8 @@ private:
     fstream file;
     unordered_map<string,unordered_map<string,string>>container;
     bool error;//errors are possible
+    inline string getSection(string line)const; //take the section
+    bool getLine(const string line,string&key,string&value); //take the line
 };
 
 

@@ -5,11 +5,45 @@
 #include "iniHandler.h"
 
 iniHandler::iniHandler(string filename) {
+    this->filename=filename;
+    this->error=false; //no errors when open a file
+    this->file.open(filename);
+    string actual_line,actual_section,key,value; //to check of what a line is composed of
+    bool in_section=false;
+    unordered_map<string,string>section; //a section is composed of this elements:key,value
+    if (this->file.is_open()){ //check if the file is open
+        while (getline(file,actual_line)) {
+            if (actual_line.empty())
+                continue; //if a line is empty pass to next line
+            if (actual_line[0] == '[' && actual_line.size() - 1 == ']') { //a line at the end has a null term this is why -1
+                if (actual_section != this->getSection(actual_line)) {
+                    if (!actual_section.empty() && !section.empty()) { //if the section retrieved is not empty and the section container is empty
+                        container[actual_section] = section; //add to the section map of map in map
+                        section.clear(); //delete the aquisited section
+                    }actual_section = this->getSection(actual_line); //save new section//delete the aquisited section
+                }in_section=true;
+            } else{
+                if(in_section) { //already in a section
+                    if(this->getLine(actual_line,keyy,value)){
+                        section[key]=value;
+                    }else
+                        {
+                        //;->commentary
+                    }
+                }
+            }
+        }if(!section.empty()){
+            container[actual_section]=section; //add the section
+            section.clear(); //delete the aquisited section
+        }file.close(); //terminated operations on file
+    }error=true;
 }
 void iniHandler::Close() {
     if(filename.size()==0)
         return; //current file?
-    
+    else{
+
+    }
 }
 bool iniHandler::error() {
     return this->error;
