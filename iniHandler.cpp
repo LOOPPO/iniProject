@@ -28,9 +28,9 @@ iniHandler::iniHandler(string filename) {
                         section[key]=value;
                     }else
                         {
-                        //;->commentary
+                        //we have ;comment
                     }
-                }
+                }                                   //need to be revisionated for a better form, don't like it so much
             }
         }if(!section.empty()){
             container[actual_section]=section; //add the section
@@ -40,10 +40,15 @@ iniHandler::iniHandler(string filename) {
 }
 void iniHandler::Close() {
     if(filename.size()==0)
-        return; //current file?
-    else{
+        return 0; //current file?
+    else{//else if the size is!=0 we have a file in the buffer
 
     }
+    //surely i'll have to clear everything if the file is closed
+    this->container.clear();
+    this->filename.clear();
+    this->file.close();
+    this->error=false; //also the error has to be set to the default mode, if a future file is being opened everything has to be ok
 }
 bool iniHandler::error() {
     return this->error;
