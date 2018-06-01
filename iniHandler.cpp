@@ -41,9 +41,24 @@ iniHandler::iniHandler(string filename) {
 void iniHandler::Close() {
     if(filename.size()==0)
         return 0; //current file?
-    else{//else if the size is!=0 we have a file in the buffer
-
+    //else if the size is!=0 we have a file in the buffer
+    this->file.open(filename,ofstream::out | ofstream::trunc);
+    size_t count = 0,total_section = config.size(),total_key,key_count = 0;
+    for(auto section:container){ //go in each section and count them
+        ++count;
+        key_count=0;
+        file << '['+section.first + ']'<< endl;
+        total_key=section.second.size();
+        for(auto key:section.second){ //go in each key and count them
+            ++key_count;
+            if(key_count!=total_key){
+                file<< key.first + "=" + key.second << endl;
+            } else
+                file << key.first + "=" + key.second;
+        }if(count!=total_section)
+            file << endl << endl;
     }
+
     //surely i'll have to clear everything if the file is closed
     this->container.clear();
     this->filename.clear();

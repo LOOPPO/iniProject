@@ -13,7 +13,9 @@ using namespace std;
 class iniHandler {
 public:
     iniHandler(string filename);//constructor
-    ~iniHandler();//destructor
+    ~iniHandler(){
+        this->Close();
+    };//destructor
     bool error();//if an error occur return true
     //functions to set values
     void set(string section,string key,string value);
@@ -28,7 +30,7 @@ public:
     //functions to delete
     bool delKey(string section,string key);
     bool delSection(string section);
-    //something to add news to the file,uf there are
+    //something to add news to the file,if there are
     void Close();
 
 private:
