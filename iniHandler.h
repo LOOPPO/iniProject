@@ -16,7 +16,7 @@ public:
     ~iniHandler(){
         this->Close();
     };//destructor
-    bool error();//if an error occur return true
+    bool Error();//if an error occur return true
     //functions to set values
     void set(string section,string key,string value);
     void setInt(string section,string key, unsigned long long value);
@@ -27,18 +27,20 @@ public:
     double getDouble(string section,string key);
     bool getBool(string setion,string key);
     string getString(string section,string key);
+    std::set<string>get_section()const; //to return a set of unique strings
+    std::set<string>get_fields(string section);
     //functions to delete
     bool delKey(string section,string key);
     bool delSection(string section);
     //something to add news to the file,if there are
-    void Close();
+    void Close(); //save all!!
 
 private:
     string filename;
     fstream file;
     unordered_map<string,unordered_map<string,string>>container;
     bool error;//errors are possible
-    inline string getSection(string line)const; //take the section
+    inline string getSection(string line)const; //take the current section,inline for better resources use
     bool getLine(const string line,string&key,string&value); //take the line
 };
 

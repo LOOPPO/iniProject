@@ -3,4 +3,4 @@ project(iniProject)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(iniProject main.cpp)
+add_executable(iniProject main.cpp iniHandler.cpp iniHandler.h)
