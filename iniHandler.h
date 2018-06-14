@@ -33,7 +33,7 @@ public:
     bool delKey(string section,string key);
     bool delSection(string section);
     //something to add news to the file,if there are
-    void Close(); //save all!!
+    void Close(); //save all!
 
 private:
     string filename;

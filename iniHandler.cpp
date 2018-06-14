@@ -15,9 +15,9 @@ iniHandler::iniHandler(string filename) {
         while (getline(file,actual_line)) {
             if (actual_line.empty())
                 continue; //if a line is empty pass to next line
-            if (actual_line[0] == '[' && actual_line[actual_line.size()  ]== ']') { //don't put -1, getline automatically discard the null term
+            if (actual_line[0] == '[' && actual_line[actual_line.size()]== ']') { //don't put -1, getline automatically discard the null term
                 if (actual_section != this->getSection(actual_line)) {
-                    if (!section.empty() && !actual_section.empty()) { //if the section retrieved is not empty and the section container is empty
+                    if (!section.empty() && !actual_section.empty()) { //if the section retrieved is not empty and the section container is not empty
                         container[actual_section] = section; //add to the section map of map in map
                         section.clear(); //delete the aquisited section
                     }
@@ -44,7 +44,7 @@ iniHandler::iniHandler(string filename) {
         file.close(); //terminated operations on file
     }
     else{
-        this->error= true; //here there was a fatal error,discarded the else.......
+        this->error= true; //there was a fatal error,discarded the else.......
     }
 }
 void iniHandler::Close() {
@@ -140,14 +140,14 @@ bool iniHandler::delSection(string section) {
 //faster functions used a lot
 string iniHandler::getSection(string line) const {
     line.erase(line.begin());
-    line.erase(line.end()-1);
+    line.erase(line.end());
     return line;
 }
 bool iniHandler::getLine(const string line, string &key, string &value) {
     auto found=line.find("=");
     if (found){
-        key=line.substr(0,found-1);
-        value=line.substr(found+2,line.size()-1);
+        key=line.substr(0,found);
+        value=line.substr(found,line.size());
                 return true;
     }
     return false; //if comment no valid line found!!!

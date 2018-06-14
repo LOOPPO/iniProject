@@ -10,7 +10,7 @@ int main() {
     }
     test.setInt("Koala","Age",10);
     test.set("Koala","Type","Australian");
-    test.setBool("Level","Stage_3",false); //true==1 false==0
+    test.setBool("Level","Stage_3",false); //false==0 true==1
     test.setInt("Audio","Volume",50);
     test.setDouble("Car","Distance",120.5);
 
@@ -36,7 +36,7 @@ int main() {
     cout<<test.getDouble("Car","Distance")<<endl;
     cout<<test.getInt("Koala","Age")<<endl;
     cout<<test.getString("Koala","Type")<<endl;
-    cout<<test.getBool("Level","Stage_3")<<endl; //true:0 false:1
+    cout<<test.getBool("Level","Stage_3")<<endl; //true==1 false==0
     test.Close();
     return 0;
 }
