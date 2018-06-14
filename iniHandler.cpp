@@ -111,7 +111,7 @@ double iniHandler::getDouble(string section, string key) { //for real numbers
 }
 bool iniHandler::getBool(string setion, string key) {
     const string str=this->getString(setion,key);
-    return str == "True" ? true : false;
+    return str == "TRUE"?true:false;
 }
 std::set<string> iniHandler::get_section() const {
     std::set<string>buffer; //why unless put std:: buffer error?

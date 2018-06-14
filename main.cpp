@@ -10,7 +10,7 @@ int main() {
     }
     test.setInt("Koala","Age",10);
     test.set("Koala","Type","Australian");
-    test.setBool("Level","Stage_3",true);
+    test.setBool("Level","Stage_3",false); //true==1 false==0
     test.setInt("Audio","Volume",50);
     test.setDouble("Car","Distance",120.5);
 
