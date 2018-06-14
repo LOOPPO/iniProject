@@ -13,9 +13,9 @@ iniHandler::iniHandler(string filename) {
     unordered_map<string,string>section; //a section is composed of this elements:key,value
     if (this->file.is_open()){ //check if the file is open
         while (getline(file,actual_line)) {
-            if (!actual_line.size())
+            if (actual_line.empty())
                 continue; //if a line is empty pass to next line
-            if (actual_line[0] == '[' && actual_line[actual_line.size() - 1 ]== ']') { //a line at the end has a null term this is why -1
+            if (actual_line[0] == '[' && actual_line[actual_line.size()  ]== ']') { //don't put -1, getline automatically discard the null term
                 if (actual_section != this->getSection(actual_line)) {
                     if (!section.empty() && !actual_section.empty()) { //if the section retrieved is not empty and the section container is empty
                         container[actual_section] = section; //add to the section map of map in map
@@ -105,13 +105,13 @@ unsigned long long iniHandler::getInt(string section, string key) {
     return str.size()?stoull(str,&sz,0):0;
 }
 double iniHandler::getDouble(string section, string key) { //for real numbers
-    string::size_type sz;
+    string::size_type sz=0;
     const string str=this->getString(section,key);
-    return str=="True";
+    return str.size()?std::stod(str,&sz):0;
 }
 bool iniHandler::getBool(string setion, string key) {
     const string str=this->getString(setion,key);
-    return str=="TRUE";
+    return str == "True" ? true : false;
 }
 std::set<string> iniHandler::get_section() const {
     std::set<string>buffer; //why unless put std:: buffer error?
@@ -135,6 +135,7 @@ bool iniHandler::delKey(string section, string key) {
 }
 bool iniHandler::delSection(string section) {
     return container.erase(section);
+
 }
 //faster functions used a lot
 string iniHandler::getSection(string line) const {
